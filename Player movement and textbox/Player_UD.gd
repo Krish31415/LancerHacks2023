@@ -3,8 +3,8 @@ extends KinematicBody2D
 const ACCELERATION = 512
 const MAX_SPEED = 64
 const FRICTION = 0.25
-const GRAVITY = 200
-const JUMP_FORCE = 128
+const GRAVITY = -500
+const JUMP_FORCE = -128
 const AIR_RESISTANCE = 0.02
 
 var motion = Vector2.ZERO
@@ -24,26 +24,20 @@ func _physics_process(delta):
 #	applies gravity
 	motion.y += GRAVITY * delta
 	
+	
 	if is_on_floor():
 		if x_input == 0:
 			motion.x = lerp(motion.x, 0, FRICTION)
 			
-		if Input.is_action_just_pressed('ui_up'):
+		if Input.is_action_just_pressed('ui_down'):
 			motion.y = -JUMP_FORCE
 			
 	else:
-		if Input.is_action_just_released('ui_up') and motion.y < -JUMP_FORCE/2:
+		if Input.is_action_just_released('ui_down') and motion.y > -JUMP_FORCE/2:
 			motion.y = -JUMP_FORCE/2
 		
 		if x_input == 0:
 			motion.x = lerp(motion.x, 0, AIR_RESISTANCE)
 	
 #	moves player
-	motion = move_and_slide(motion, Vector2.UP)
-	
-	
-	
-
-
-func _on_Area2D_body_entered(body):
-	print('SUCCESS')# Replace with function body.
+	motion = move_and_slide(motion, Vector2.DOWN)

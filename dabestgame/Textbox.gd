@@ -13,7 +13,6 @@ func _ready():
 	queue_text("One to overthrow tyranny.")
 	queue_text("Welcome, HERO! Your quest is to defeat BALTHAZAR BEELZEBUB!")
 	queue_text("Use the WASD or arrow keys to move.")
-	queue_text("sjdbfskufbewyvawiyfsuyvzf, aeriuaeiurgheariufhasifuna3wiudhaiuef.")
 	
 enum State {
 	READY,
@@ -48,6 +47,7 @@ func _process(delta):
 func hidescript():
 	start_symbol.text = ""
 	end_symbol.text = ""
+	label.text = ""
 	textbox_container.hide()
 
 func show_textbox():
@@ -69,8 +69,11 @@ func change_state(next_state):
 		State.READING:
 			pass
 		State.FINISHED:
-			pass	
-
+			pass
+			
+func failSafeHide():
+	if currentstate == State.FINISHED and label.text == "":
+		hidescript()
 
 func _on_Tween_tween_completed(object, key):
 	end_symbol.text = "V"

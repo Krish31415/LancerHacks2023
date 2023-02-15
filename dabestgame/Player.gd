@@ -5,14 +5,18 @@ const ACCELERATION = 8
 const MAX_SPEED = 64
 const FRICTION = 10
 const AIR_RESISTANCE = 1
-const GRAVITY = 4
+const GRAVITY = 5
 const JUMP_FORCE = 140
 
 var motion = Vector2.ZERO
 
 onready var sprite = $Sprite
 onready var animationPlayer = $AnimationPlayer
-onready var player = get_node('Player')
+onready var tree = get_tree()
+
+func _ready():
+	
+	print('TEXTBOX')
 
 func _physics_process(delta):
 	var x_input = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
@@ -49,14 +53,6 @@ func _physics_process(delta):
 	
 	motion = move_and_slide(motion, Vector2.UP)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
 
-
-func _on_Area2D_body_entered(body):
-	get_tree().change_scene("res://blacknwhite.tscn")# Replace with function body.
-
-
-func _on_Area2D_body_exited(body):
-	get_tree().change_scene("res://blacknwhite.tscn") # Replace with function body.
+func _on_ToUnderworld_body_exited(body):
+	tree.change_scene("res://blacknwhite.tscn")
