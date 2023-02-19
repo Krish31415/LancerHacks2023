@@ -3,7 +3,7 @@ extends KinematicBody2D
 const ACCELERATION = 512
 const MAX_SPEED = 64
 const FRICTION = 0.25
-const GRAVITY = -500
+const GRAVITY = -300
 const JUMP_FORCE = -128
 const AIR_RESISTANCE = 0.02
 
